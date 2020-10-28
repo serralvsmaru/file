@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -36,6 +34,9 @@ public class FilesController {
         //如果这里没有设置路径的话，会默认保存到项目的根目录下
         // getOriginalFilename()获取文件名
         String fileName = file.getOriginalFilename();
+        if(fileName == null){
+            throw new Exception("文件名为空");
+        }
         // 获取文件名后缀
         String extension = "." + fileName.substring(fileName.lastIndexOf("."));
         // 生成新的文件名
