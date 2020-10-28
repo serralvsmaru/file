@@ -38,7 +38,7 @@ public class FilesController {
             throw new Exception("文件名为空");
         }
         // 获取文件名后缀
-        String extension = "." + fileName.substring(fileName.lastIndexOf("."));
+        String extension = fileName.substring(fileName.lastIndexOf("."));
         // 生成新的文件名
         String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + UUID.randomUUID().toString().replace("-", "") + extension;
         String filePath = "D:/upload/" + newFileName;
