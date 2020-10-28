@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author konosuba
@@ -30,7 +34,13 @@ public class FilesController {
     @PostMapping("/upload")
     public void upload(@RequestParam("file")MultipartFile file) throws Exception {
         //如果这里没有设置路径的话，会默认保存到项目的根目录下
-        String filePath = file.getOriginalFilename();
+        // getOriginalFilename()获取文件名
+        String fileName = file.getOriginalFilename();
+        // 获取文件名后缀
+        String extension = "." + fileName.substring(fileName.lastIndexOf("."));
+        // 生成新的文件名
+        String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + UUID.randomUUID().toString().replace("-", "") + extension;
+        String filePath = "D:/upload/" + newFileName;
         BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(filePath));
         //将上传的文件转为字节流保存下来
         outputStream.write(file.getBytes());
