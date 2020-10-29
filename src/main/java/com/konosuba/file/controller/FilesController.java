@@ -38,7 +38,7 @@ public class FilesController {
             throw new Exception("文件名为空");
         }
         // 获取文件名后缀
-        String extension = "." + fileName.substring(fileName.lastIndexOf("."));
+        String extension = fileName.substring(fileName.lastIndexOf("."));
         // 生成新的文件名
         String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + UUID.randomUUID().toString().replace("-", "") + extension;
         String filePath = "D:/upload/" + newFileName;
@@ -57,8 +57,11 @@ public class FilesController {
         //设置选择下载的文件
         FileSystemResource file = new FileSystemResource("A标准2寸.jpg");
         HttpHeaders headers = new HttpHeaders();
+        String name = "123.jpg";
+        // 头文件的值，用来重命名下载文件
+        String value = "attachment; filename=" + name;
         //在响应头中添加这个，设置下载文件默认的名称
-        headers.add("Content-Disposition", "attachment; filename=123.jpg");
+        headers.add("Content-Disposition", value);
         return ResponseEntity.ok().headers(headers).contentLength(file.contentLength()).contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new InputStreamResource(file.getInputStream()));
     }
