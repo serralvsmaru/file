@@ -58,7 +58,7 @@ public class FilesController {
         FileSystemResource file = new FileSystemResource("A标准2寸.jpg");
         HttpHeaders headers = new HttpHeaders();
         String name = "123.jpg";
-        // 头文件的值，用来重命名下载文件
+        // 头文件的值，用来为下载文件重命名
         String value = "attachment; filename=" + name;
         //在响应头中添加这个，设置下载文件默认的名称
         headers.add("Content-Disposition", value);
